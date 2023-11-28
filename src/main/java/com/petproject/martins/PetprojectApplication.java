@@ -46,8 +46,8 @@ public class PetprojectApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Tutor t1 = new Tutor(null, "Ivanio Martins", "092.348.134-64", null);
-		Tutor t2 = new Tutor(null, "Janinny Pessoa", "092.348.135-65", null);
+		Tutor t1 = new Tutor(null, "Ivanio Martins", "092.348.134-64", "ivaniomartins1991@gmail.com", null);
+		Tutor t2 = new Tutor(null, "Janinny Pessoa", "092.348.135-65", "janinny_pessoa@hotmail.com", null);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 

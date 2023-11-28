@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,11 +32,13 @@ public class Tutor implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer codTutor;
+	private Long codTutor;
 	private String nome;
 	private String cpf;
+	private String email;
 
 	// UM TUTOR PODE TER VÁRIOS ANIMAIS;
+	@JsonIgnore
 	@OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL)
 	private List<Paciente> pacientes = new ArrayList<>();
 

@@ -41,7 +41,7 @@ public class Paciente implements Serializable {
 
 	// UM ANIMAL TEM UM TUTOR
 
-	@JsonIgnore
+
 	@ManyToOne
 	@JoinColumn(name = "cod_tutor")
 	private Tutor tutor;
