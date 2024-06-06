@@ -23,7 +23,7 @@ public class AtendimentoService {
 		
 	}
 	
-	public List<Atendimento> buscarTodos(){
+	public Iterable<Atendimento> buscarTodos(){
 			
 	return repo.findAll();
 		

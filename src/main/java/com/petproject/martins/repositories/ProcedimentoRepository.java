@@ -6,8 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.petproject.martins.model.Procedimento;
 
 @Repository
-public interface ProcedimentoRepository extends JpaRepository<Procedimento, Long>{
-	
-	
+public interface ProcedimentoRepository extends JpaRepository<Procedimento, Long> {
 
 }

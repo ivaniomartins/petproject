@@ -13,49 +13,51 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.petproject.martins.model.Tutor;
+import com.petproject.martins.model.dto.TutorDto;
 import com.petproject.martins.services.TutorService;
 
 @RestController
-@RequestMapping(value= "/tutores")
+@RequestMapping(value = "/tutores")
 public class TutorResource {
-	
+
 	@Autowired
 	private TutorService service;
-	
-	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Long id){
-		
-		Tutor obj = service.buscar(id);
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<TutorDto> find(@PathVariable Long id) {
+
+		TutorDto obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List <Tutor>> findAll(){
-		
-		List<Tutor> list = service.findAll();
-		
+	public ResponseEntity<List<TutorDto>> listAll() {
+
+		List<TutorDto> list = service.findAll();
+
 		return ResponseEntity.ok().body(list);
-		
+
 	}
-	
-	@RequestMapping(method= RequestMethod.POST)
-	public ResponseEntity<Void> insert (@RequestBody Tutor obj){
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@RequestBody Tutor obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getCodTutor()).toUri();
-		
-		return ResponseEntity.created(uri).build(); 
-	} 
-	
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update (@RequestBody Tutor obj, @PathVariable Long id){
-		
-		Tutor tutor = service.buscar(id);
-		 tutor.setCodTutor(id);
-		 tutor = service.updateById(tutor);
-		 
-		 return ResponseEntity.noContent().build();
+
+		return ResponseEntity.created(uri).build();
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<TutorDto> update(@RequestBody TutorDto tutorDto, @PathVariable Long id) {
+
+		TutorDto updateTutorDto = service.updateTutor(id, tutorDto);
+		if (updateTutorDto != null) {
+			return ResponseEntity.ok(updateTutorDto);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+
 	}
 
 }

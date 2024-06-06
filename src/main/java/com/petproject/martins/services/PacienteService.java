@@ -26,7 +26,7 @@ public class PacienteService {
 	
 	public List<Paciente> findAll(){
 		
-		return repo.findAll();
+		return  (List<Paciente>) repo.findAll();
 		
 	}
 	

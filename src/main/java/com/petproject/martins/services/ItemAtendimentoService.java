@@ -25,7 +25,7 @@ public class ItemAtendimentoService {
 	 
  }
  
- public List<ItemAtendimento> buscarTodos () {
+ public Iterable<ItemAtendimento> buscarTodos () {
 	 
 	 return repo.findAll();
 	 
