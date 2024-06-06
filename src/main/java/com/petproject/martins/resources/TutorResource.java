@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.petproject.martins.model.Tutor;
 import com.petproject.martins.model.dto.TutorDto;
 import com.petproject.martins.services.TutorService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/tutores")
@@ -40,7 +41,7 @@ public class TutorResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody TutorDto dto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody TutorDto dto) {
 		dto = service.createTutor(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(dto.getCodTutor()).toUri();
