@@ -33,6 +33,13 @@ public class TutorService {
 				.collect(Collectors.toList());
 	}
 
+	public TutorDto createTutor(TutorDto tutorDto) {
+		Tutor tutor = tutorMapper.toEntity(tutorDto);
+		Tutor savedTutor = repo.save(tutor);
+
+		return tutorMapper.toDto(savedTutor);
+	}
+
 	public TutorDto updateTutor(Long id, TutorDto tutorDto) {
 
 		Optional<Tutor> tutorOptional = repo.findById(id);
@@ -48,4 +55,5 @@ public class TutorService {
 			return null;
 		}
 	}
+
 }

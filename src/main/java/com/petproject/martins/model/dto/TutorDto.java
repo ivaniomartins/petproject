@@ -23,6 +23,9 @@ public class TutorDto implements Serializable {
 	@Email(message = "Email inválido")
 	private String email;
 
+	@NotBlank(message = "O número do CPF é obrigatório")
+	private String cpf;
+
 	public TutorDto() {
 
 	}
