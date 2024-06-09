@@ -1,6 +1,10 @@
 package com.petproject.martins.resources.exception;
 
-public class StandardError {
+import java.io.Serializable;
+
+public class StandardError implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Long timestamp;
     private Integer status;
@@ -9,6 +13,7 @@ public class StandardError {
     private String path;
 
     public StandardError(Long timestamp, Integer status, String error, String message, String path) {
+        super();
         this.timestamp = timestamp;
         this.status = status;
         this.error = error;
