@@ -56,4 +56,12 @@ public class TutorService {
 		}
 	}
 
+	public boolean deleteTutor(Long id) {
+		Optional<Tutor> tutor = repo.findById(id);
+		if (tutor.isPresent()) {
+			repo.deleteById(id);
+			return true;
+		}
+		return false;
+	}
 }

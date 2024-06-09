@@ -61,4 +61,11 @@ public class TutorResource {
 
 	}
 
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		boolean deleteRecord = service.deleteTutor(id);
+		return deleteRecord ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+
+	}
+
 }
