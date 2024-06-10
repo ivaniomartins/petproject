@@ -5,7 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,14 +28,14 @@ public class TutorResource {
 	@Autowired
 	private TutorService service;
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@GetMapping("/{id}")
 	public ResponseEntity<TutorDto> find(@PathVariable Long id) {
 
 		TutorDto obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public ResponseEntity<List<TutorDto>> listAll() {
 
 		List<TutorDto> list = service.findAll();
@@ -40,7 +44,7 @@ public class TutorResource {
 
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody TutorDto dto) {
 		dto = service.createTutor(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -49,7 +53,7 @@ public class TutorResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@PutMapping("/{id}")
 	public ResponseEntity<TutorDto> update(@RequestBody TutorDto tutorDto, @PathVariable Long id) {
 
 		TutorDto updateTutorDto = service.updateTutor(id, tutorDto);
@@ -61,7 +65,7 @@ public class TutorResource {
 
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		boolean deleteRecord = service.deleteTutor(id);
 		return deleteRecord ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
