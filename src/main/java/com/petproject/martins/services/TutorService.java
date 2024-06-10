@@ -11,6 +11,7 @@ import com.petproject.martins.model.Tutor;
 import com.petproject.martins.model.dto.TutorDto;
 import com.petproject.martins.model.mapper.TutorMapper;
 import com.petproject.martins.repositories.TutorRepository;
+import com.petproject.martins.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class TutorService {
@@ -21,10 +22,10 @@ public class TutorService {
 	public final TutorMapper tutorMapper = TutorMapper.INSTANCE;
 
 	public TutorDto find(Long id) {
-
 		Optional<Tutor> obj = repo.findById(id);
-
-		return obj.map(tutorMapper::toDto).orElse(null);
+		return obj.map(tutorMapper::toDto)
+				.orElseThrow(() -> new ObjectNotFoundException(
+						"Tutor não encontrado: " + id + ", Tipo: " + Tutor.class.getName()));
 	}
 
 	public List<TutorDto> findAll() {
