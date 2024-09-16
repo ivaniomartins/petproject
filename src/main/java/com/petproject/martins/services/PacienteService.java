@@ -32,25 +32,24 @@ public class PacienteService {
 	public List<PacienteDto> findAll() {
 
 		return repo.findAll().stream()
-				.map(pacienteMapper::toDto)
-				.collect(Collectors.toList());
+				.map(pacienteMapper::toDto).collect(Collectors.toList());
 
 	}
 
-	public Paciente update(Paciente obj) {
-		// incluir a lógica de atualização com base no registro do banco de dados.
-		Paciente newObj = buscar(obj.getCdPaciente());
-		updatePaciente(newObj, obj);
-		return repo.save(newObj);
-	}
+	public PacienteDto updatePaciente(Long id, PacienteDto pacienteDto) {
+		Optional<Paciente> pacienteOptional = repo.findById(id);
+		if (pacienteOptional.isPresent()) {
+			Paciente paciente = pacienteOptional.get();
+			paciente.setNmPaciente(pacienteDto.getNmPaciente());
+			paciente.setPeso(pacienteDto.getPeso());
+			paciente.setRaca(pacienteDto.getRaca());
 
-	public void updatePaciente(Paciente newObj, Paciente obj) {
+			Paciente pacienteUpdate = repo.save(paciente);
+			return pacienteMapper.toDto(pacienteUpdate);
 
-		obj.setNmPaciente(newObj.getNmPaciente());
-		obj.setDtNascimento(newObj.getDtNascimento());
-		obj.setPeso(newObj.getPeso());
-		obj.setRaca(newObj.getRaca());
-		obj.setTutor(newObj.getTutor());
+		} else {
+			return null;
+		}
 
 	}
 }
