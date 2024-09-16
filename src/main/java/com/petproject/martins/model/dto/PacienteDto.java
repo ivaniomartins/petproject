@@ -26,8 +26,9 @@ public class PacienteDto {
     private Double peso;
     @DateTimeFormat
     private Date dtNascimento;
+
     @NotBlank
-    private String especie;
+    private TutorDto tutor;
 
     public PacienteDto() {
 
