@@ -5,7 +5,11 @@ import java.util.Date;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.petproject.martins.model.Tutor;
+
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,20 +19,18 @@ import lombok.Setter;
 @Setter
 public class PacienteDto {
 
-    @NotBlank
     private Long cdPaciente;
     @NotBlank(message = "O nome do paciente é obrigatório")
     @Length(min = 3)
     private String nmPaciente;
     @NotBlank
     private String raca;
-    @NotBlank
+    @NotNull
     private Double peso;
     @DateTimeFormat
     private Date dtNascimento;
 
-    @NotBlank
-    private TutorDto tutor;
+    private Tutor tutor;
 
     public PacienteDto() {
 

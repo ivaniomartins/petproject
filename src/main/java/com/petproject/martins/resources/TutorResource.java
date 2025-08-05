@@ -47,7 +47,8 @@ public class TutorResource {
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody TutorDto dto) {
 		dto = service.createTutor(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
 				.buildAndExpand(dto.getCodTutor()).toUri();
 
 		return ResponseEntity.created(uri).build();

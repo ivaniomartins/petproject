@@ -16,7 +16,6 @@ public class TutorDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@NotNull
 	private Long codTutor;
 
 	@NotBlank(message = "O nome do tutor é obrigatório")

@@ -11,6 +11,7 @@ import com.petproject.martins.model.Paciente;
 import com.petproject.martins.model.dto.PacienteDto;
 import com.petproject.martins.model.mapper.PacienteMapper;
 import com.petproject.martins.repositories.PacienteRepository;
+import com.petproject.martins.resources.exception.ValidationError;
 import com.petproject.martins.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -51,5 +52,23 @@ public class PacienteService {
 			return null;
 		}
 
+	}
+
+	public PacienteDto createPaciente(PacienteDto pacienteDto) {
+		Paciente paciente = pacienteMapper.toEntity(pacienteDto);
+
+		Paciente savedPaciente = repo.save(paciente);
+
+		return pacienteMapper.toDto(savedPaciente);
+
+	}
+
+	public boolean deletePaciente(Long id) {
+		Optional<Paciente> paciente = repo.findById(id);
+		if (paciente.isPresent()) {
+			repo.deleteById(id);
+			return true;
+		}
+		return false;
 	}
 }
