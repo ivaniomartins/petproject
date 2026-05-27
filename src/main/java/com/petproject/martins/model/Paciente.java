@@ -21,15 +21,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
 @EqualsAndHashCode
-
-@Entity
 public class Paciente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long cdPaciente;
@@ -40,7 +39,6 @@ public class Paciente implements Serializable {
 	private String especie;
 
 	// UM ANIMAL TEM UM TUTOR
-
 
 	@ManyToOne
 	@JoinColumn(name = "cod_tutor")
