@@ -1,9 +1,14 @@
 package com.petproject.martins.resources;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,12 +17,8 @@ import com.petproject.martins.model.Procedimento;
 import com.petproject.martins.model.dto.ProcedimentoDto;
 import com.petproject.martins.services.ProcedimentoService;
 
-import jakarta.persistence.PostUpdate;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 @RestController
-@RequestMapping(value = "/id")
+@RequestMapping(value = "/procedimentos")
 public class ProcedimentoResource {
 
 	@Autowired
@@ -29,6 +30,15 @@ public class ProcedimentoResource {
 		Procedimento proc = serv.find(id);
 
 		return ResponseEntity.ok().body(proc);
+
+	}
+
+	@GetMapping
+	public ResponseEntity<List<ProcedimentoDto>> listAll() {
+
+		List<ProcedimentoDto> list = serv.findAll();
+
+		return ResponseEntity.ok().body(list);
 
 	}
 

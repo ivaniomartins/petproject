@@ -1,13 +1,14 @@
 package com.petproject.martins.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.petproject.martins.model.Procedimento;
 import com.petproject.martins.model.dto.ProcedimentoDto;
-import com.petproject.martins.model.dto.TutorDto;
 import com.petproject.martins.model.mapper.ProcedimentoMapper;
 import com.petproject.martins.repositories.ProcedimentoRepository;
 
@@ -22,6 +23,13 @@ public class ProcedimentoService {
 		Optional<Procedimento> proc = repo.findById(id);
 
 		return proc.orElse(null);
+
+	}
+
+	public List<ProcedimentoDto> findAll() {
+		return repo.findAll().stream()
+				.map(procedimentoMapper::toDto)
+				.collect(Collectors.toList());
 
 	}
 

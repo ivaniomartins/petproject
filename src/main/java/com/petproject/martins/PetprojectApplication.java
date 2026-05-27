@@ -59,15 +59,15 @@ public class PetprojectApplication implements CommandLineRunner {
 
 		Procedimento pc1 = new Procedimento(null, "Consulta", 80.00);
 		Procedimento pc2 = new Procedimento(null, "Vacina", 100.00);
-		
-		ItemAtendimento i1 = new ItemAtendimento(null, pc1,a1);
-		ItemAtendimento i2 = new ItemAtendimento(null, pc2,a1);
+
+		ItemAtendimento i1 = new ItemAtendimento(null, pc1, a1);
+		ItemAtendimento i2 = new ItemAtendimento(null, pc2, a1);
 
 		tutorRepository.saveAll(Arrays.asList(t1, t2));
 		pacienteRepository.saveAll(Arrays.asList(p1, p2, p3));
 		atendimentoRepository.saveAll(Arrays.asList(a1));
-		procedimentoRepository.saveAll(Arrays.asList(pc1,pc2));
-		itemRepository.saveAll(Arrays.asList(i1,i2));
+		procedimentoRepository.saveAll(Arrays.asList(pc1, pc2));
+		itemRepository.saveAll(Arrays.asList(i1, i2));
 
 	}
 
