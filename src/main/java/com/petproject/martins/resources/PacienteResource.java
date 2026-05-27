@@ -50,11 +50,7 @@ public class PacienteResource {
 	public ResponseEntity<PacienteDto> update(@RequestBody PacienteDto pacienteDto, @PathVariable Long id) {
 
 		PacienteDto updatePacienteDto = service.updatePaciente(id, pacienteDto);
-		if (updatePacienteDto != null) {
-			return ResponseEntity.ok(updatePacienteDto);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+		return ResponseEntity.ok(updatePacienteDto);
 
 	}
 
@@ -70,8 +66,8 @@ public class PacienteResource {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		boolean deleteRecord = service.deletePaciente(id);
-		return deleteRecord ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+		service.deletePaciente(id);
+		return ResponseEntity.noContent().build();
 
 	}
 }
