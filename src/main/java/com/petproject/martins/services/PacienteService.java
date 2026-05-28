@@ -11,7 +11,6 @@ import com.petproject.martins.model.Paciente;
 import com.petproject.martins.model.dto.PacienteDto;
 import com.petproject.martins.model.mapper.PacienteMapper;
 import com.petproject.martins.repositories.PacienteRepository;
-import com.petproject.martins.resources.exception.ValidationError;
 import com.petproject.martins.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -19,14 +18,15 @@ public class PacienteService {
 
 	@Autowired
 	private PacienteRepository repo;
-	public final PacienteMapper pacienteMapper = PacienteMapper.INSTANCE;
+	@Autowired
+	public PacienteMapper pacienteMapper;
 
 	public PacienteDto find(Long id) {
 
-		Optional<Paciente> obj = repo.findById(id);
-		return obj.map(pacienteMapper::toDto)
+		Paciente obj = repo.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundException(
-						"Paciente não encontrado: " + id + ", Tipo: " + Paciente.class.getName()));
+						"Objeto não encontrado! Id: " + id + ", Tipo: " + Paciente.class.getName()));
+		return pacienteMapper.toDto(obj);
 
 	}
 
@@ -38,19 +38,14 @@ public class PacienteService {
 	}
 
 	public PacienteDto updatePaciente(Long id, PacienteDto pacienteDto) {
-		Optional<Paciente> pacienteOptional = repo.findById(id);
-		if (pacienteOptional.isPresent()) {
-			Paciente paciente = pacienteOptional.get();
-			paciente.setNmPaciente(pacienteDto.getNmPaciente());
-			paciente.setPeso(pacienteDto.getPeso());
-			paciente.setRaca(pacienteDto.getRaca());
+		Paciente paciente = repo.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Paciente não encontrado: " + id));
+		paciente.setNmPaciente(pacienteDto.getNmPaciente());
+		paciente.setPeso(pacienteDto.getPeso());
+		paciente.setRaca(pacienteDto.getRaca());
 
-			Paciente pacienteUpdate = repo.save(paciente);
-			return pacienteMapper.toDto(pacienteUpdate);
-
-		} else {
-			return null;
-		}
+		Paciente pacienteUpdate = repo.save(paciente);
+		return pacienteMapper.toDto(pacienteUpdate);
 
 	}
 
@@ -63,12 +58,8 @@ public class PacienteService {
 
 	}
 
-	public boolean deletePaciente(Long id) {
-		Optional<Paciente> paciente = repo.findById(id);
-		if (paciente.isPresent()) {
-			repo.deleteById(id);
-			return true;
-		}
-		return false;
+	public void deletePaciente(Long id) {
+		repo.findById(id).orElseThrow(() -> new ObjectNotFoundException("Paciente não encontrado: " + id));
+		repo.deleteById(id);
 	}
 }
