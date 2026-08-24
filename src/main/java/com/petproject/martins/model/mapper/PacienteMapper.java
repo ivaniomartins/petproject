@@ -1,7 +1,6 @@
 package com.petproject.martins.model.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.petproject.martins.model.Paciente;
@@ -12,6 +11,8 @@ public interface PacienteMapper {
 
     PacienteMapper INSTANCE = Mappers.getMapper(PacienteMapper.class);
 
+    // PacienteDto não tem 'atendimentos' nem 'especie' (a entidade armazena o cod
+    // do enum em uma String) — MapStruct ignora automaticamente.
     PacienteDto toDto(Paciente paciente);
 
     Paciente toEntity(PacienteDto pacienteDto);
