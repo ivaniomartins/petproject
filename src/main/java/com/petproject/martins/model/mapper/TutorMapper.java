@@ -11,6 +11,7 @@ public interface TutorMapper {
 
     TutorMapper INSTANCE = Mappers.getMapper(TutorMapper.class);
 
+    // TutorDto não tem o campo 'pacientes' — MapStruct ignora automaticamente.
     TutorDto toDto(Tutor tutor);
 
     Tutor toEntity(TutorDto tutorDto);
